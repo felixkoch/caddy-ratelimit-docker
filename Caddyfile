@@ -8,17 +8,25 @@
 # sure your domain's A/AAAA DNS records are properly pointed to
 # this machine's public IP, then replace the line below with your
 # domain name.
+
+
+
+
 :80  {
 
+    @noLimit {
+    not path /test2.html /test3.html
+  }
+
 route {
-rate_limit /* {
+rate_limit @noLimit {
   #by_header Authorization
   max_requests 2
   window_length 1m
 }
 
 # Set this path to your site's directory.
-root * /usr/share/caddy
+root * /srv
 
 # Enable the static file server.
 file_server
